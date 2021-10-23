@@ -70,7 +70,9 @@ function randomBetween(min, max) {
 
 function madlibs(template) {
   let sortedKeys = Object.keys(REPLACEMENTS).sort();
-  let mapped = template.map(word => {
+  let words = template.split(' ');
+  let mapped = words.map(word => {
+    word = word.replace(/\*/g, '');
     if (sortedKeys.some(key => word.match(key))) {
       for (let i = 0; i < sortedKeys.length; i += 1) {
         let currentKey = sortedKeys[i];
@@ -93,26 +95,7 @@ function replaceWord(word, key) {
   return word.replace(key, randomWord);
 }
 
-const template1 = [
-'The',
-'adjective',
-'brown',
-'noun',
-"adverb",
-"verb",
-'the',
-"adjective",
-'yellow',
-"noun,",
-'who',
-"adverb",
-"verb",
-'his',
-"noun",
-'and',
-'looks',
-'around.'
-];
+const template1 = "The *adjective* brown *noun* *adverb* *verb* the *adjective* yellow *noun,* who *adverb* *verb* his *noun* and looks around.";
 
 console.log(madlibs(template1));
 // The "sleepy" brown "cat" "noisily"
@@ -120,22 +103,7 @@ console.log(madlibs(template1));
 // "dog", who "lazily" "licks" his
 // "tail" and looks around.
 
-// madlibs(template1);
-// // The "hungry" brown "cat" "lazily"
-// // "licks" the "noisy" yellow
-// // "dog", who "lazily" "licks" his
-// // "leg" and looks around.
-
-
-const template2 = [
-  'The',
-  'noun',
-  'verb',
-  'the',
-  "noun's",
-  'noun.'
-];
+const template2 = "The *noun* *verb* the *noun's* *noun.*";
 
 console.log(madlibs(template2));      // The "fox" "bites" the "dog"'s "tail".
 
-// madlibs(template2);      // The "cat" "pats" the "cat"'s "head".
